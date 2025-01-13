@@ -188,8 +188,13 @@ public class FibonacciHeap
 			this.deleteMin();
 		else
 		{
+			//change here
+			HeapNode currmin = min;
+			this.decreaseKey(x, Integer.MAX_VALUE);
 			TotalCuts +=x.rank;
+			min = currmin;
 			this.Rootify(x);
+			
 			size--;
 		}
 		
@@ -199,17 +204,18 @@ public class FibonacciHeap
 	public void Rootify (HeapNode x)
 	{
 		
-		if(x.parent == null)
-			numOfTrees--;
-		else
-		{
-			x.parent.rank--;
-			if(x.next==x)
-				x.parent.child =null;
-			else
-				x.parent.child = x.next;
-		}
+//		if(x.parent == null)
+//			numOfTrees--;
+//		else
+//		{
+//			x.parent.rank--;
+//			if(x.next==x)
+//				x.parent.child =null;
+//			else
+//				x.parent.child = x.next;
+//		}
 		
+		numOfTrees--;
 		
 		HeapNode temp = x.child;
 		HeapNode curr;
@@ -468,13 +474,15 @@ public class FibonacciHeap
 		mini = mini.next;
 		}
 		FibonacciHeap.HeapNode.printHeap(heapi.findMin(), heapi.numOfTrees);
-		heapi.delete(heapi.findMin().child.next);
-		
+		heapi.delete(heapi.findMin().child.next.child.next);
+		System.out.println("after del");
+		heapi.delete(heapi.findMin().child.next.child);
+		System.out.println("total cuts:" + heapi.totalCuts());
 		FibonacciHeap.HeapNode.printHeap(heapi.findMin(),heapi.numOfTrees);
 		heapi.deleteMin();
 		FibonacciHeap.HeapNode.printHeap(heapi.findMin(),heapi.numOfTrees);
 		System.out.println(heapi.TotalLinks);
-		heapi.decreaseKey(heapi.findMin().child.next.child, 5);
+		//heapi.decreaseKey(heapi.findMin().child.next, 5);
 		FibonacciHeap.HeapNode.printHeap(heapi.findMin(),heapi.numOfTrees);
 		System.out.println(heapi.totalCuts());
 		
